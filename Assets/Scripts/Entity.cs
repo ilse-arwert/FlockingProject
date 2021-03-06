@@ -7,10 +7,10 @@ public class Entity : MonoBehaviour
     //-----------------------------------------------------------------------------
     // Const Data
     //-----------------------------------------------------------------------------
-    private static readonly float mRadiusSquaredDistance = 5.0f;
-    private static readonly float mMaxVelocity = 1.0f;
-    private static readonly float mMaxCubeExtent = 10.0f;
-    private static readonly float mMaxCubeExtentX = 20.0f;
+    private static readonly float mRadiusSquaredDistance = 50.0f;
+    private static readonly float mMaxVelocity = 3.0f;
+    private static readonly float mMaxCubeExtent = 25.0f;
+    private static readonly float mMaxCubeExtentX = 50.0f;
 
     //-----------------------------------------------------------------------------
     // Data

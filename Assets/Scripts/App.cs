@@ -14,9 +14,9 @@ public class App : MonoBehaviour
     //-----------------------------------------------------------------------------
     public Entity templatePrefab = null;
 
-    public float separationWeight = 0.8f;
-    public float alignmentWeight = 0.5f;
-    public float cohesionWeight = 0.7f;
+    public float separationWeight = 0.9f;
+    public float alignmentWeight = 0.9f;
+    public float cohesionWeight = 0.9f;
 
     public UISlidersWidget sliderWidget = null;
 
@@ -44,6 +44,14 @@ public class App : MonoBehaviour
             Entity flockEntity = Instantiate( templatePrefab );
 
             flockEntity.transform.rotation = Random.rotation;
+
+            var startPos = new Vector3(
+                Random.Range(-20, 20),
+                Random.Range(-10, 10),
+                Random.Range(-10, 10)
+            );
+
+            flockEntity.transform.position = startPos;
 
             flockEntity.SetID( i );
 
