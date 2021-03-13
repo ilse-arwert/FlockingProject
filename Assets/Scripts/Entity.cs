@@ -9,8 +9,6 @@ public class Entity : MonoBehaviour
     //-----------------------------------------------------------------------------
     private static readonly float mRadiusSquaredDistance = 50.0f;
     private static readonly float mMaxVelocity = 3.0f;
-    private static readonly float mMaxCubeExtent = 25.0f;
-    private static readonly float mMaxCubeExtentX = 50.0f;
 
     //-----------------------------------------------------------------------------
     // Data
@@ -38,53 +36,23 @@ public class Entity : MonoBehaviour
 
         transform.forward = mVelocity.normalized;
 
-        //Reposition();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log(other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position));
     }
 
     //-----------------------------------------------------------------------------
-    public void Reposition(Vector3 normal)
+    public void Collide(Vector3 normal)
     {
-        //TODO: actually reflect
-        Debug.Log(normal);
-        mVelocity = Vector3.Reflect(mVelocity, normal);
-        // Debug.Log(mVelocity);
-        // Vector3 position = transform.position;
-
-        // if( position.x >= mMaxCubeExtentX )
-        // {
-        //     position.x = mMaxCubeExtentX - 0.2f;
-        //     mVelocity.x *= -1;
-        // }
-        // else if( position.x <= -mMaxCubeExtentX )
-        // {
-        //     position.x = -mMaxCubeExtentX + 0.2f;
-        //     mVelocity.x *= -1;
-        // }
-
-        // if( position.y >= mMaxCubeExtent )
-        // {
-        //     position.y = mMaxCubeExtent - 0.2f;
-        //     mVelocity.y *= -1;
-        // }
-        // else if( position.y <= -mMaxCubeExtent )
-        // {
-        //     position.y = -mMaxCubeExtent + 0.2f;
-        //     mVelocity.y *= -1;
-        // }
-
-        // if( position.z >= mMaxCubeExtent )
-        // {
-        //     position.z = mMaxCubeExtent - 0.2f;
-        //     mVelocity.z *= -1;
-        // }
-        // else if( position.z <= -mMaxCubeExtent )
-        // {
-        //     position.z = -mMaxCubeExtent + 0.2f;
-        //     mVelocity.z *= -1;
-        // }
-
-        // transform.forward = mVelocity.normalized;
-        // transform.position = position;
+        for(int i = 0; i < 3; i++)
+        {
+            if(normal[i] != 0)
+            {
+                mVelocity[i] *= -1;
+            }
+        }
     }
 
     //-----------------------------------------------------------------------------
