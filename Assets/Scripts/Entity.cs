@@ -38,49 +38,53 @@ public class Entity : MonoBehaviour
 
         transform.forward = mVelocity.normalized;
 
-        Reposition();
+        //Reposition();
     }
 
     //-----------------------------------------------------------------------------
-    private void Reposition()
+    public void Reposition(Vector3 normal)
     {
-        Vector3 position = transform.position;
+        //TODO: actually reflect
+        Debug.Log(normal);
+        mVelocity = Vector3.Reflect(mVelocity, normal);
+        // Debug.Log(mVelocity);
+        // Vector3 position = transform.position;
 
-        if( position.x >= mMaxCubeExtentX )
-        {
-            position.x = mMaxCubeExtentX - 0.2f;
-            mVelocity.x *= -1;
-        }
-        else if( position.x <= -mMaxCubeExtentX )
-        {
-            position.x = -mMaxCubeExtentX + 0.2f;
-            mVelocity.x *= -1;
-        }
+        // if( position.x >= mMaxCubeExtentX )
+        // {
+        //     position.x = mMaxCubeExtentX - 0.2f;
+        //     mVelocity.x *= -1;
+        // }
+        // else if( position.x <= -mMaxCubeExtentX )
+        // {
+        //     position.x = -mMaxCubeExtentX + 0.2f;
+        //     mVelocity.x *= -1;
+        // }
 
-        if( position.y >= mMaxCubeExtent )
-        {
-            position.y = mMaxCubeExtent - 0.2f;
-            mVelocity.y *= -1;
-        }
-        else if( position.y <= -mMaxCubeExtent )
-        {
-            position.y = -mMaxCubeExtent + 0.2f;
-            mVelocity.y *= -1;
-        }
+        // if( position.y >= mMaxCubeExtent )
+        // {
+        //     position.y = mMaxCubeExtent - 0.2f;
+        //     mVelocity.y *= -1;
+        // }
+        // else if( position.y <= -mMaxCubeExtent )
+        // {
+        //     position.y = -mMaxCubeExtent + 0.2f;
+        //     mVelocity.y *= -1;
+        // }
 
-        if( position.z >= mMaxCubeExtent )
-        {
-            position.z = mMaxCubeExtent - 0.2f;
-            mVelocity.z *= -1;
-        }
-        else if( position.z <= -mMaxCubeExtent )
-        {
-            position.z = -mMaxCubeExtent + 0.2f;
-            mVelocity.z *= -1;
-        }
+        // if( position.z >= mMaxCubeExtent )
+        // {
+        //     position.z = mMaxCubeExtent - 0.2f;
+        //     mVelocity.z *= -1;
+        // }
+        // else if( position.z <= -mMaxCubeExtent )
+        // {
+        //     position.z = -mMaxCubeExtent + 0.2f;
+        //     mVelocity.z *= -1;
+        // }
 
-        transform.forward = mVelocity.normalized;
-        transform.position = position;
+        // transform.forward = mVelocity.normalized;
+        // transform.position = position;
     }
 
     //-----------------------------------------------------------------------------
