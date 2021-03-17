@@ -14,28 +14,36 @@ public class Entity : MonoBehaviour
     // Data
     //-----------------------------------------------------------------------------
     private int mID = 0;
-    private Vector3 mVelocity = new Vector3();
-
+    private Vector3 goalVelocity = new Vector3();
+    private Vector3 currentVelocity = new Vector3();
+    private bool justCollided = false;
     //-----------------------------------------------------------------------------
     // Functions
     //-----------------------------------------------------------------------------
     void Start()
     {
-        mVelocity = transform.forward;
-        mVelocity = Vector3.ClampMagnitude( mVelocity, mMaxVelocity );
+        goalVelocity = transform.forward;
+        goalVelocity = Vector3.ClampMagnitude( goalVelocity, mMaxVelocity );
+        currentVelocity = goalVelocity;
     }
 
     //-----------------------------------------------------------------------------
     void Update()
     {
-        mVelocity += FlockingBehaviour();
-
-        mVelocity = Vector3.ClampMagnitude( mVelocity, mMaxVelocity );
-
-        transform.position += mVelocity * Time.deltaTime;
-
-        transform.forward = mVelocity.normalized;
-
+        //are we done turning away from our collision? then consider the flock again
+        //note: i'm rounding to two decimals here bc the entities kept getting stuck at 0.9999...
+        if ((Mathf.Round(Vector3.Dot(goalVelocity.normalized, currentVelocity.normalized) * 100) / 100) == 1) {
+            goalVelocity += FlockingBehaviour();
+            goalVelocity = Vector3.ClampMagnitude( goalVelocity, mMaxVelocity );
+            // currentVelocity = goalVelocity;
+        }
+        
+        currentVelocity = Vector3.RotateTowards(currentVelocity, goalVelocity, mMaxVelocity/2 * Time.deltaTime, 1.0f);
+        currentVelocity = Vector3.ClampMagnitude(currentVelocity, mMaxVelocity);            
+        
+        transform.rotation = Quaternion.LookRotation(currentVelocity);
+        transform.position += currentVelocity * Time.deltaTime;
+        transform.forward = currentVelocity.normalized;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -43,14 +51,21 @@ public class Entity : MonoBehaviour
         Debug.Log(other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position));
     }
 
+    public void printVectors() {
+        print("goal  vector: " + goalVelocity.ToString() );
+        print("curnt vector: " + currentVelocity.ToString() );
+        print(Vector3.Dot(goalVelocity.normalized, currentVelocity.normalized));
+    }
+
     //-----------------------------------------------------------------------------
     public void Collide(Vector3 normal)
     {
+        justCollided = true;
         for(int i = 0; i < 3; i++)
         {
             if(normal[i] != 0)
             {
-                mVelocity[i] *= -1;
+                goalVelocity[i] *= -1;
             }
         }
     }
