@@ -16,7 +16,6 @@ public class Entity : MonoBehaviour
     private int mID = 0;
     private Vector3 goalVelocity = new Vector3();
     private Vector3 currentVelocity = new Vector3();
-    private bool justCollided = false;
     //-----------------------------------------------------------------------------
     // Functions
     //-----------------------------------------------------------------------------
@@ -33,9 +32,9 @@ public class Entity : MonoBehaviour
         //are we done turning away from our collision? then consider the flock again
         //note: i'm rounding to two decimals here bc the entities kept getting stuck at 0.9999...
         if ((Mathf.Round(Vector3.Dot(goalVelocity.normalized, currentVelocity.normalized) * 100) / 100) == 1) {
+            currentVelocity = goalVelocity;
             goalVelocity += FlockingBehaviour();
             goalVelocity = Vector3.ClampMagnitude( goalVelocity, mMaxVelocity );
-            // currentVelocity = goalVelocity;
         }
         
         currentVelocity = Vector3.RotateTowards(currentVelocity, goalVelocity, mMaxVelocity/2 * Time.deltaTime, 1.0f);
@@ -52,15 +51,14 @@ public class Entity : MonoBehaviour
     }
 
     public void printVectors() {
-        print("goal  vector: " + goalVelocity.ToString() );
-        print("curnt vector: " + currentVelocity.ToString() );
+        print("goal vector: " + goalVelocity.ToString() );
+        print("current vector: " + currentVelocity.ToString() );
         print(Vector3.Dot(goalVelocity.normalized, currentVelocity.normalized));
     }
 
     //-----------------------------------------------------------------------------
     public void Collide(Vector3 normal)
     {
-        justCollided = true;
         for(int i = 0; i < 3; i++)
         {
             if(normal[i] != 0)
