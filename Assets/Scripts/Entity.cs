@@ -38,7 +38,10 @@ public class Entity : MonoBehaviour
         }
         
         currentVelocity = Vector3.RotateTowards(currentVelocity, goalVelocity, mMaxVelocity/2 * Time.deltaTime, 1.0f);
-        currentVelocity = Vector3.ClampMagnitude(currentVelocity, mMaxVelocity);            
+        currentVelocity = Vector3.ClampMagnitude(currentVelocity, mMaxVelocity);
+        currentVelocity *= App.instance.speedWeight;
+
+        Debug.Log(currentVelocity);
         
         transform.rotation = Quaternion.LookRotation(currentVelocity);
         transform.position += currentVelocity * Time.deltaTime;

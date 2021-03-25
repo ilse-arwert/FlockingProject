@@ -14,6 +14,7 @@ public class App : MonoBehaviour
     //-----------------------------------------------------------------------------
     public Entity templatePrefab = null;
 
+    public float speedWeight = 1.0f;
     public float separationWeight = 0.2f;
     public float alignmentWeight = 0.95f;
     public float cohesionWeight = 0.7f;

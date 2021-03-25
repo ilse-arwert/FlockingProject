@@ -7,6 +7,7 @@ public class UISlidersWidget : MonoBehaviour
     //-----------------------------------------------------------------------------
     // Data
     //-----------------------------------------------------------------------------
+    public Slider speedSlider = null;
     public Slider separationSlider = null;
     public Slider alignmentSlider = null;
     public Slider cohesionSlider = null;
@@ -16,6 +17,9 @@ public class UISlidersWidget : MonoBehaviour
     //-----------------------------------------------------------------------------
     public void Setup()
     {
+        speedSlider.value = App.instance.speedWeight;
+        speedSlider.onValueChanged.AddListener((value) => App.instance.speedWeight = value );
+
         separationSlider.value = App.instance.separationWeight;
         separationSlider.onValueChanged.AddListener( ( value ) => App.instance.separationWeight = value );
 
