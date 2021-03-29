@@ -1,0 +1,15 @@
+{
+"companyName": "Leiden University ",
+"productName": "School Simulator",
+"productVersion": "1.0",
+"dataUrl": "f3.data.unityweb",
+"wasmCodeUrl": "f3.wasm.code.unityweb",
+"wasmFrameworkUrl": "f3.wasm.framework.unityweb",
+"graphicsAPI": ["WebGL 2.0","WebGL 1.0"],
+"webglContextAttributes": {"preserveDrawingBuffer": false},
+"splashScreenStyle": "Light",
+"backgroundColor": "#FFFFFF",
+"developmentBuild": false,
+"multithreading": false,
+"unityVersion": "2019.4.22f1"
+}
